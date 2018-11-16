@@ -1,3 +1,4 @@
+`ifndef __ICARUS__
 import "DPI-C" function int serial_tick
 (
     input  bit     serial_out_valid,
@@ -8,6 +9,7 @@ import "DPI-C" function int serial_tick
     input  bit     serial_in_ready,
     output int     serial_in_bits
 );
+`endif
 
 module SimSerial (
     input         clock,
@@ -50,7 +52,11 @@ module SimSerial (
             __out_ready_reg <= 0;
             __exit_reg <= 0;
         end else begin
+`ifdef __ICARUS__
+            __exit = $serial_tick(
+`else
             __exit = serial_tick(
+`endif
                 serial_out_valid,
                 __out_ready,
                 serial_out_bits,

@@ -11,9 +11,9 @@
  * This is a table of register functions. This table is the external
  * symbol that the simulator looks for when loading this .vpi module.
  */
-extern void block_device_tick_register();
+extern void serial_tick_register();
 
 void (*vlog_startup_routines[])(void) = {
-      block_device_tick_register,
+      serial_tick_register,
       0
 };
